@@ -1,12 +1,10 @@
 <?php
-include_once __DIR__ . './CreditCard.php';
-
-class CreditCard extends User
+class CreditCard
 {
     private $number;
     private $expiration_date;
-    private $name_on_card;
-    private $last_name_on_card;
+    private $name;
+    private $last_name;
 
     // set functions
     public function set_number($input_number)
@@ -15,15 +13,22 @@ class CreditCard extends User
     }
     public function set_expiration_date($input_expiration_date)
     {
-        $this->expiration_date = $input_expiration_date;
+        $date = new DateTime($input_expiration_date);
+        if ($date->format("Y/m/d") < date("Y/m/d")) {
+            $this->expiration_date = $input_expiration_date;
+        } else if ($date->format("Y/m/d") >= date("Y/m/d")) {
+            throw new Exception("Your credit card was expired");
+        } else {
+            throw new Exception("Invalid expiration date");
+        }
     }
-    public function set_name_on_card($input_name_on_card)
+    public function set_name($input_name)
     {
-        $this->name_on_card = $input_name_on_card;
+        $this->name = $input_name;
     }
-    public function set_last_name_on_card($input_last_name_on_card)
+    public function set_last_name($input_last_name)
     {
-        $this->last_name_on_card = $input_last_name_on_card;
+        $this->last_name = $input_last_name;
     }
 
     // get functions
@@ -35,21 +40,21 @@ class CreditCard extends User
     {
         return $this->expiration_date;
     }
-    public function get_name_on_card()
+    public function get_name()
     {
-        return $this->name_on_card;
+        return $this->name;
     }
-    public function get_last_name_on_card()
+    public function get_last_name()
     {
-        return $this->last_name_on_card;
+        return $this->last_name;
     }
 
     // construct
-    public function __construct($input_number, $input_expiration_date, $input_name_on_card, $input_last_name_on_card)
+    public function __construct($input_number, $input_expiration_date, $input_name, $input_last_name)
     {
         $this->set_number($input_number);
         $this->set_expiration_date($input_expiration_date);
-        $this->set_name_on_card($input_name_on_card);
-        $this->set_last_name_on_card($input_last_name_on_card);
+        $this->set_name($input_name);
+        $this->set_last_name($input_last_name);
     }
 }
