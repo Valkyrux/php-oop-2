@@ -7,6 +7,8 @@ class User
     protected $name;
     protected $last_name;
     private $date_of_birth;
+    protected $subscription = false;
+
     // set functions
     public function set_nick_name($input_nick_name)
     {
@@ -21,7 +23,7 @@ class User
     public function set_email($input_email)
     {
         // check per la validazione della mail
-        if (strpos($input_email, " ") === false && $input_email != "" && strpos($input_email, "@") != false) {
+        if (strpos($input_email, " ") === false && strpos($input_email, "@") !== false) {
             $this->email = $input_email;
         } else {
             throw new Exception("Invalid email");
@@ -59,16 +61,60 @@ class User
         }
     }
 
-    public function __construct($inpu_nick_name)
+    public function set_subsription()
     {
-        $this->set_nick_name($inpu_nick_name);
+        if ($this->get_subscription() === true) {
+            $this->subscription = false;
+        } else {
+            $this->subscription = true;
+        }
+    }
+
+    //get functions
+    public function get_nick_name()
+    {
+        return $this->nick_name;
+    }
+    public function get_email()
+    {
+        return $this->email;
+    }
+    public function get_password()
+    {
+        return $this->password;
+    }
+    public function get_name()
+    {
+        return $this->name;
+    }
+    public function get_last_name()
+    {
+        return $this->last_name;
+    }
+    public function get_date_of_birth()
+    {
+        return $this->date_of_birth;
+    }
+    public function get_subscription()
+    {
+        return $this->subscription;
+    }
+    // construct
+    public function __construct($input_nick_name, $input_email, $input_password)
+    {
+        $this->set_nick_name($input_nick_name);
+        $this->set_email($input_email);
+        $this->set_password($input_password);
     }
 }
 
-$io = new User("c");
+$io = new User("c", "@", "aaaaaaaaaaaa");
 var_dump(date("d-m-Y"));
 $var = new DateTime("2003/02/02");
 var_dump($var->format("d-m-Y"));
 if ($var->format("Y-m-d") < date("Y-m-d")) {
-    var_dump("diocane");
+    var_dump($io);
 }
+$io->set_subsription();
+$io->set_subsription();
+var_dump($io->get_subscription());
