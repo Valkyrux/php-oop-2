@@ -1,13 +1,10 @@
 <?php
-
 require_once __DIR__ . '/User.php';
-
 class Premium extends User
 {
     protected $level;
     protected $date;
     protected $months;
-    protected $discount;
 
     // set functions
     public function set_level(int $input_level)
@@ -24,16 +21,12 @@ class Premium extends User
         $start_date = new DateTime($input_date);
         $end_date = new DateTime($input_date);
         $end_date->add(new DateInterval('P' . $input_months . 'M'));
-        if ($end_date->format("Y/m/d") > date("Y/m/d") && $start_date->format("Y/m/d") < date("Y/m/d")) {
+        if ($end_date->format("Y/m/d") > date("Y/m/d") && $start_date->format("Y/m/d") <= date("Y/m/d")) {
             $this->date = $start_date->format("d/m/Y");
             $this->months = $input_months;
         } else {
             throw new Exception("Invalid subscription date and months");
         }
-    }
-    public function set_discount()
-    {
-        $this->discount = $this->get_level() * 10;
     }
 
     // get functions
@@ -52,16 +45,14 @@ class Premium extends User
     }
     public function get_discount()
     {
-        return $this->discount;
+        return $this->get_level() * 10;
     }
 
     // construct
-    public function __construct($input_level, $input_date, $input_months)
+    public function __construct($input_nick, $input_email, $input_password, $input_level, $input_date, $input_months)
     {
+        parent::__construct($input_nick, $input_email, $input_password);
         $this->set_level($input_level);
         $this->set_date_months($input_date, $input_months);
-        $this->set_discount();
     }
 }
-
-$io = new Premium(1, "17-01-2022", 1);

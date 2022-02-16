@@ -14,9 +14,9 @@ class CreditCard
     public function set_expiration_date($input_expiration_date)
     {
         $date = new DateTime($input_expiration_date);
-        if ($date->format("Y/m/d") < date("Y/m/d")) {
+        if ($date->format("Y/m/d") > date("Y/m/d")) {
             $this->expiration_date = $input_expiration_date;
-        } else if ($date->format("Y/m/d") >= date("Y/m/d")) {
+        } else if ($date->format("Y/m/d") <= date("Y/m/d")) {
             throw new Exception("Your credit card was expired");
         } else {
             throw new Exception("Invalid expiration date");

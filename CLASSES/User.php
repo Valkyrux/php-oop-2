@@ -9,7 +9,6 @@ class User
     protected $last_name;
     private $credit_cards = [];
     private $date_of_birth;
-    protected $subscription = false;
 
     // set functions
     public function set_nick_name(string $input_nick_name)
@@ -78,15 +77,6 @@ class User
         }
     }
 
-    public function set_subsription()
-    {
-        if ($this->get_subscription() === true) {
-            $this->subscription = false;
-        } else {
-            $this->subscription = true;
-        }
-    }
-
     //get functions
     public function get_nick_name()
     {
@@ -116,10 +106,7 @@ class User
     {
         return $this->date_of_birth;
     }
-    public function get_subscription()
-    {
-        return $this->subscription;
-    }
+
     // construct
     public function __construct($input_nick_name, $input_email, $input_password)
     {
