@@ -107,14 +107,3 @@ class User
         $this->set_password($input_password);
     }
 }
-
-$io = new User("c", "@", "aaaaaaaaaaaa");
-var_dump(date("d-m-Y"));
-$var = new DateTime("2003/02/02");
-var_dump($var->format("d-m-Y"));
-if ($var->format("Y-m-d") < date("Y-m-d")) {
-    var_dump($io);
-}
-$io->set_subsription();
-$io->set_subsription();
-var_dump($io->get_subscription());
